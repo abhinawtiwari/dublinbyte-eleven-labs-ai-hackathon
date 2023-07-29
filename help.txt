@@ -1,0 +1,2 @@
+voices are:  
+['Rachel', 'Clyde', 'Domi', 'Dave', 'Fin', 'Bella', 'Antoni', 'Thomas', 'Charlie', 'Emily', 'Elli', 'Callum', 'Patrick', 'Harry ', 'Liam', 'Dorothy', 'Josh', 'Arnold', 'Charlotte', 'Matilda ', 'Matthew', 'James', 'Joseph', 'Jeremy', 'Michael ', 'Ethan', 'Gigi', 'Freya', 'Grace', 'Daniel', 'Serena', 'Adam', 'Nicole', 'Jessie', 'Ryan ', 'Sam', 'Glinda', 'Giovanni', 'Mimi ']
