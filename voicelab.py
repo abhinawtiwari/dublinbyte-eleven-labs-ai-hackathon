@@ -1,14 +1,17 @@
 import requests
-from pydub import AudioSegment
-from pydub.playback import play
+# from pydub import AudioSegment
+# from pydub.playback import play
 import io
 import dotenv, os
+from elevenlabs import clone, generate, play, set_api_key
 
 dotenv.load_dotenv()
 
 ELEVENLABS_SECRET_KEY = os.environ.get("ELEVENLABS_SECRET_KEY")
 if not ELEVENLABS_SECRET_KEY:
     raise ValueError("SECRET_KEY environment variable not set")
+
+set_api_key(ELEVENLABS_SECRET_KEY) 
 
 def play_custom_audio(text):
     voice_id = 'LDjha7jNI09SuV54UREl'
@@ -30,11 +33,11 @@ def play_custom_audio(text):
     # Check that the request was successful
     if response.status_code == 200:
         # Create a BytesIO object from the response content
-        audio_io = io.BytesIO(response.content)
+        # audio_io = io.BytesIO(response.content)
         # Create an audio segment
-        audio_segment = AudioSegment.from_file(audio_io, format="mp3")
+        # audio_segment = AudioSegment.from_file(audio_io, format="mp3")
         # Play the audio segment
-        play(audio_segment)
+        play(response.content)
     else:
         # Handle the error
         print(f"Error: {response.status_code}")
