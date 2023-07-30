@@ -3,6 +3,7 @@ import requests
 # from pydub.playback import play
 import io
 import dotenv, os
+import base64
 from elevenlabs import clone, generate, play, set_api_key
 
 dotenv.load_dotenv()
@@ -36,8 +37,9 @@ def play_custom_audio(text):
         # audio_io = io.BytesIO(response.content)
         # Create an audio segment
         # audio_segment = AudioSegment.from_file(audio_io, format="mp3")
-        # Play the audio segment
-        play(response.content)
+        # Play the audio segment, not working on streamlit cloud, working on local
+        # play(response.content)
+        return base64.b64encode(response.content).decode()
     else:
         # Handle the error
         print(f"Error: {response.status_code}")

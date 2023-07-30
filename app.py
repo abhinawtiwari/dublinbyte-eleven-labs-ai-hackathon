@@ -36,6 +36,7 @@ if prompt := st.chat_input("What is up?"):
 # Display assistant response in chat message container
 with st.chat_message("assistant"):
     message_placeholder = st.empty()
+    audio_placeholder = st.empty()
     full_response = ""
     if prompt:
         assistant_response = chat({
@@ -59,9 +60,17 @@ with st.chat_message("assistant"):
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
             # play audio
-            play_custom_audio(assistant_response['response']['answer'])
+            audio_content = play_custom_audio(assistant_response['response']['answer'])
             # audio = generate(text=assistant_response['response']['answer'], voice='Charlotte')
             # play(audio)
+            audio_placeholder.markdown(
+            f"""
+            <audio controls autoplay>
+                <source src="data:audio/mp3;base64,{audio_content}" type="audio/mp3">
+            </audio>
+            """,
+            unsafe_allow_html=True,
+        )
 
         else:
             message_placeholder.markdown('Oh No !! Something went wrong. Please Try again')
@@ -82,7 +91,15 @@ with st.chat_message("assistant"):
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
         # audio play
-        play_custom_audio(assistant_response)
+        audio_content = play_custom_audio(assistant_response)
+        audio_placeholder.markdown(
+            f"""
+            <audio controls autoplay>
+                <source src="data:audio/mp3;base64,{audio_content}" type="audio/mp3">
+            </audio>
+            """,
+            unsafe_allow_html=True,
+        )
         # audio = generate(text=assistant_response, voice='Freya')
         # play(audio)
         
