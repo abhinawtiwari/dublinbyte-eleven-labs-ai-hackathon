@@ -5,7 +5,7 @@ import os
 
 
 # Here we are setting up the ElevenLabs API key.
-os.environ['ELEVENLABS_API_KEY'] = 'a3ff8207c8b63c33e9d35d26a6977118';
+os.environ['ELEVENLABS_API_KEY'] = ''
 set_api_key(os.environ.get("ELEVENLABS_API_KEY"))
 
 

@@ -7,7 +7,7 @@ import streamlit as st
 
 # Import modules from the local package
 from _langchain import get_response
-from _elevenlabs import with_custom_voice, with_premade_voice, get_voices
+from bin._elevenlabs import with_custom_voice, with_premade_voice, get_voices
 
 # Configure logger
 logging.basicConfig(format="\n%(asctime)s\n%(message)s", level=logging.INFO, force=True)

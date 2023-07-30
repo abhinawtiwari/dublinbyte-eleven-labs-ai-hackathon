@@ -1,9 +1,19 @@
 import streamlit as st
 import random
 import time
-from ReacTok_Chat.chat_bot_API import chat
+from chat_bot_API import chat
+from voicelab import play_custom_audio
+from utils.userId_generator import generate_random_string
 
-st.title("Simple chat")
+st.set_page_config(page_title="ReacTok", page_icon="🎧")
+st.title("ReacTok")
+st.markdown(
+    "TikTok fan engagement"
+)
+
+userId = 'test100000'
+# userId = 'test' + generate_random_string(5)
+# print("new user: " + userId)
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -30,25 +40,40 @@ with st.chat_message("assistant"):
     if prompt:
         assistant_response = chat({
         'query' : prompt,
-        'userID' : 'test123'
+        'userID' : userId
         })
+        print("Stage: ", assistant_response['response']['conversation_stage'])
         if assistant_response['status'] == 'success':
+            # play audio 
+            # audio = generate(text=assistant_response['response']['answer'], voice='Charlotte')
+            # play(audio)
+
             for chunk in assistant_response['response']['answer'].split():
+                # # trying audio play in chunks
+                # audio = generate(text=chunk, voice='Charlotte')
+                # play(audio)
+
                 full_response += chunk + " "
                 time.sleep(0.05)
                 # Add a blinking cursor to simulate typing
                 message_placeholder.markdown(full_response + "▌")
             message_placeholder.markdown(full_response)
+            # play audio
+            play_custom_audio(assistant_response['response']['answer'])
+            # audio = generate(text=assistant_response['response']['answer'], voice='Charlotte')
+            # play(audio)
+
         else:
             message_placeholder.markdown('Oh No !! Something went wrong. Please Try again')
     else:
         assistant_response = random.choice(
         [
             "Hello there! How can I assist you today?",
-            "Hi, human! Is there anything I can help you with?",
-            "Do you need help?",
+            "Hi! Is there anything I can help you with?",
+            "Welcome! Let's chat",
         ]
-    )
+        )
+        
         # Simulate stream of response with milliseconds delay
         for chunk in assistant_response.split():
             full_response += chunk + " "
@@ -56,5 +81,10 @@ with st.chat_message("assistant"):
             # Add a blinking cursor to simulate typing
             message_placeholder.markdown(full_response + "▌")
         message_placeholder.markdown(full_response)
+        # audio play
+        play_custom_audio(assistant_response)
+        # audio = generate(text=assistant_response, voice='Freya')
+        # play(audio)
+        
 # Add assistant response to chat history
 st.session_state.messages.append({"role": "assistant", "content": full_response})
