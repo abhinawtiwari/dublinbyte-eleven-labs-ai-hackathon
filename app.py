@@ -11,7 +11,7 @@ st.markdown(
     "TikTok fan engagement"
 )
 
-userId = 'test100000'
+userId = 'test100001'
 # userId = 'test' + generate_random_string(5)
 # print("new user: " + userId)
 
@@ -38,6 +38,7 @@ with st.chat_message("assistant"):
     message_placeholder = st.empty()
     audio_placeholder = st.empty()
     full_response = ""
+    prepared_answer = ''
     if prompt:
         assistant_response = chat({
         'query' : prompt,
@@ -48,8 +49,11 @@ with st.chat_message("assistant"):
             # play audio 
             # audio = generate(text=assistant_response['response']['answer'], voice='Charlotte')
             # play(audio)
-
-            for chunk in assistant_response['response']['answer'].split():
+            prepared_answer = assistant_response['response']['answer']
+            if assistant_response['response']['recommendations']:
+                print('recommendations: ', assistant_response['response']['recommendations'])
+                prepared_answer = assistant_response['response']['answer'] + "\n" + "You can buy me virtual gift(s) from these:\n" +  ", ".join(assistant_response['response']['recommendations'])
+            for chunk in prepared_answer.split():
                 # # trying audio play in chunks
                 # audio = generate(text=chunk, voice='Charlotte')
                 # play(audio)
